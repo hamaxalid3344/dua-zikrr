@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پاڕانەوەکانم - سەرەکی</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="readingProgress" class="reading-progress"></div>
+
+    <nav class="glass fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-4 sm:gap-8">
+                    <h1 class="text-xl sm:text-2xl font-bold text-white">پاڕانەوەکانم</h1>
+                    <div class="hidden md:flex gap-6">
+                        <a href="index.html" class="nav-link text-white hover:text-gray-200 transition">سەرەکی</a>
+                        <a href="poems.html" class="nav-link text-white hover:text-gray-200 transition">شیعرەکان</a>
+                        <a href="favorites.html" class="nav-link text-white hover:text-gray-200 transition">دڵخوازەکان</a>
+                        <a href="about.html" class="nav-link text-white hover:text-gray-200 transition">دەربارە</a>
+                    </div>
+                </div>
+            <button id="hamburger" class="hamburger md:hidden p-2 rounded-lg glass bg-white/10 hover:bg-white/20">
+                <span class="block w-6 h-0.5 bg-white rounded-sm transition-all"></span>
+                <span class="block w-6 h-0.5 bg-white rounded-sm mt-1 transition-all"></span>
+                <span class="block w-6 h-0.5 bg-white rounded-sm mt-1 transition-all"></span>
+            </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" onclick="closeMobileMenu()">سەرەکی</a>
+        <a href="poems.html" onclick="closeMobileMenu()">شیعرەکان</a>
+        <a href="favorites.html" onclick="closeMobileMenu()">دڵخوازەکان</a>
+        <a href="about.html" onclick="closeMobileMenu()">دەربارە</a>
+    </div>
+
+    <section class="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="hero-title text-4xl sm:text-5xl md:text-7xl font-light text-white mb-4 sm:mb-6">
+              فَٱذۡكُرُونِيٓ أَذۡكُرۡكُمۡ
+            </h2>
+            <p class="text-lg sm:text-xl md:text-2xl text-gray-400 mb-6 sm:mb-8 floating">
+                ئێوه‌ یادی من بكه‌ن به‌وه‌ی تاعه‌ت و گوێڕایه‌ڵیم بكه‌ن منیش یادی ئێوه‌ ئه‌كه‌م به‌وه‌ی كه‌ پاداشتتان ئه‌ده‌مه‌وه‌و لێتان خۆش ده‌بم
+            </p>
+            
+            <div class="grid grid-cols-3 gap-2 sm:gap-4 max-w-2xl mx-auto mb-6 sm:mb-8">
+                <div class="stats-card">
+                    <div class="text-2xl sm:text-3xl font-bold text-white mb-1" id="totalPoems">0</div>
+                    <div class="text-xs sm:text-sm text-gray-400">شیعر</div>
+                </div>
+                <div class="stats-card">
+                    <div class="text-2xl sm:text-3xl font-bold text-white mb-1" id="totalAuthors">0</div>
+                    <div class="text-xs sm:text-sm text-gray-400">شاعیر</div>
+                </div>
+                <div class="stats-card">
+                    <div class="text-2xl sm:text-3xl font-bold text-white mb-1" id="favoriteCount">0</div>
+                    <div class="text-xs sm:text-sm text-gray-400">دڵخواز</div>
+                </div>
+            </div>
+            
+            <a href="poems.html" class="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full font-bold hover:from-indigo-600 hover:to-purple-700 transition transform hover:scale-105 shadow-lg">
+                دەستپێکردن
+            </a>
+        </div>
+    </section>
+
+    <section class="py-12 sm:py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-3xl sm:text-4xl font-bold text-white text-center mb-8 sm:mb-12">شیعرە دوایینەکان</h3>
+            <div id="recentPoems" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8">
+            </div>
+            <div class="text-center">
+                <a href="poems.html" class="inline-block glass text-white px-6 py-3 rounded-full hover:bg-white/10 transition">
+                    بینینی هەموو شیعرەکان →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-6 sm:py-8 px-4 mt-12 sm:mt-20">
+        <div class="max-w-7xl mx-auto text-center text-gray-500">
+            <p class="text-sm sm:text-base">دروستکراوە بە ❤️ بۆ خۆشەویستانی شیعر</p>
+            <p class="mt-2 text-sm sm:text-base">© 2026 شعر - هەموو مافەکان پارێزراون</p>
+        </div>
+    </footer>
+
+    <button id="scrollToTop" class="scroll-to-top" onclick="scrollToTopSmooth()">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <div id="toast" class="toast">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/poems-data.js"></script>
+    <script>
+        async function init() {
+            await loadPoems();
+            updateStats();
+            
+            // نیشاندانی 3 شیعری دوایین
+            const recentPoems = poems.slice(-3).reverse();
+            const container = document.getElementById('recentPoems');
+            if (container) {
+                container.innerHTML = recentPoems.map(poem => getPoemCard(poem)).join('');
+            }
+        }
+        
+        init();
+    </script>
+</body>
+</html>
