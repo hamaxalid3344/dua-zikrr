@@ -21,16 +21,21 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+    <div class="snow-container" id="snowContainer"></div>
+
     <div id="readingProgress" class="reading-progress"></div>
 
     <nav class="glass fixed w-full top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center gap-4 sm:gap-8">
-                    <a href="index.html"><img src="./images/logo.png" alt="لۆگۆ" class="w-10 h-10 rounded-full logo-img"></a>
-                    <h1 class="text-xl sm:text-2xl font-bold text-white"><a href="index.html">پاڕانەوەکانم</a></h1>
+                    <img src="./images/logo.png" alt="لۆگۆ" class="w-10 h-10 rounded-full logo-img">
+                    <h1 class="text-xl sm:text-2xl font-bold text-white">پاڕانەوەکانم</h1>
                     <div class="hidden md:flex gap-6">
-                        <a href="index.html" class="nav-link text-white hover:text-gray-200 transition">سەرەکی</a>
+                        <a href="index.html" 
+   class="nav-link text-white hover:text-gray-200 transition" 
+   onclick="goToIndexWithoutSplash(); return false;">سەرەکی</a>
                         <a href="poems.html" class="nav-link text-white hover:text-gray-200 transition">شیعرەکان</a>
                         <a href="favorites.html" class="nav-link text-white hover:text-gray-200 transition">دڵخوازەکان</a>
                         <a href="about.html" class="nav-link text-white hover:text-gray-200 transition">دەربارە</a>
@@ -46,7 +51,7 @@
     </nav>
 
     <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html" onclick="closeMobileMenu()">سەرەکی</a>
+        <a href="index.html" onclick="goToIndexWithoutSplash(); closeMobileMenu(); return false;">سەرەکی</a>
         <a href="poems.html" onclick="closeMobileMenu()">شیعرەکان</a>
         <a href="favorites.html" onclick="closeMobileMenu()">دڵخوازەکان</a>
         <a href="about.html" onclick="closeMobileMenu()">دەربارە</a>
@@ -139,6 +144,11 @@
     <script src="js/main.js"></script>
     <script src="js/poems-data.js"></script>
     <script>
+        function goToIndexWithoutSplash() {
+    sessionStorage.setItem('fromPoems', 'true');
+    window.location.href = 'index.html';
+}
+
         let currentPoem = null;
         let currentPoemId = null;
 
@@ -298,6 +308,38 @@
         }
         
         init();
+        // بەفر
+function createSnow() {
+    const snowContainer = document.getElementById('snowContainer');
+    const snowflakeCount = 50;
+
+    for (let i = 0; i < snowflakeCount; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        
+        const size = Math.random();
+        if (size > 0.7) {
+            snowflake.classList.add('large');
+        } else if (size < 0.3) {
+            snowflake.classList.add('small');
+        }
+        
+        snowflake.style.left = Math.random() * 100 + '%';
+        
+        const drift = (Math.random() - 0.5) * 100;
+        snowflake.style.setProperty('--drift', drift + 'px');
+        
+        snowflake.style.animationDelay = Math.random() * 5 + 's';
+        snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        
+        snowContainer.appendChild(snowflake);
+    }
+}
+
+// دەستپێکردن
+window.addEventListener('DOMContentLoaded', () => {
+    createSnow();
+});
     </script>
 
     <style>
@@ -324,6 +366,53 @@
                 color: #000 !important;
             }
         }
+
+        /* بەفر */
+.snow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.snowflake {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    animation: snowfall linear infinite;
+    filter: blur(1px);
+}
+
+@keyframes snowfall {
+    0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+        transform: translateY(110vh) translateX(var(--drift)) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.snowflake.large {
+    width: 12px;
+    height: 12px;
+    filter: blur(1.5px);
+}
+
+.snowflake.small {
+    width: 5px;
+    height: 5px;
+    filter: blur(0.5px);
+}
     </style>
 </body>
 </html>

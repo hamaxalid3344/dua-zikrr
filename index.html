@@ -6,11 +6,9 @@
     
     <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi2YHYs9iqINin2YUg2KfbjCDYp9ix2KfZhSIsInNob3J0X25hbWUiOiLZgtiuINin2LPYp9mFINin2YYiLCJpY29ucyI6W3sic3JjIjoibG9nby5wbmciLCJzaXplcyI6IjUxMngxMjgiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dfQ==">
     
-    <!-- 🆕 لۆگۆکان -->
     <link rel="icon" type="image/png" href="./images/logo.png">
     <link rel="apple-touch-icon" href="./images/logo.png">
     
-    <!-- 🆕 PWA بۆ مۆبایل home screen -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#000000">
@@ -19,119 +17,673 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div id="readingProgress" class="reading-progress"></div>
+    
+    <style>
+        /* سپلاش سکرین */
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
 
-    <nav class="glass fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center gap-4 sm:gap-8">
-                    <a href="index.html"><img src="./images/logo.png" alt="لۆگۆ" class="w-10 h-10 rounded-full logo-img"></a>
-                    <h1 class="text-xl sm:text-2xl font-bold text-white"><a href="index.html">پاڕانەوەکانم</a></h1>
-                    <div class="hidden md:flex gap-6">
-                        <a href="index.html" class="nav-link text-white hover:text-gray-200 transition active">سەرەکی</a>
-                        <a href="poems.html" class="nav-link text-white hover:text-gray-200 transition">شیعرەکان</a>
-                        <a href="favorites.html" class="nav-link text-white hover:text-gray-200 transition">دڵخوازەکان</a>
-                        <a href="about.html" class="nav-link text-white hover:text-gray-200 transition">دەربارە</a>
-                    </div>
+        #splashScreen.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .splash-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(120, 119, 198, 0.4) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(74, 86, 226, 0.4) 0%, transparent 60%),
+                radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+            animation: gradientMove 10s ease-in-out infinite;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .splash-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .splash-logo-container {
+            margin-bottom: 2rem;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .splash-logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 
+                0 20px 60px rgba(99, 102, 241, 0.5),
+                0 0 80px rgba(168, 85, 247, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .splash-logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .splash-logo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .splash-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #e0e0e0 50%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            animation: titleGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .splash-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            animation: subtitleFade 3s ease-in-out infinite;
+        }
+
+        @keyframes subtitleFade {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .splash-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .splash-loading-bar {
+            width: 300px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .splash-loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+            border-radius: 10px;
+            animation: loadingProgress 2.5s ease-in-out forwards;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.8);
+        }
+
+        @keyframes loadingProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .splash-loading-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            animation: textBlink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes textBlink {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .splash-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .splash-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            animation: snowfall linear infinite;
+            filter: blur(1px);
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) translateX(var(--drift)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* کڵۆ بەفرە گەورەکان */
+        .splash-particle.large {
+            width: 12px;
+            height: 12px;
+            filter: blur(1.5px);
+        }
+
+        /* کڵۆ بەفرە بچووکەکان */
+        .splash-particle.small {
+            width: 5px;
+            height: 5px;
+            filter: blur(0.5px);
+        }
+
+        @media (max-width: 768px) {
+            .splash-logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .splash-logo img {
+                width: 65px;
+                height: 65px;
+            }
+
+            .splash-title {
+                font-size: 2.5rem;
+            }
+
+            .splash-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .splash-loading-bar {
+                width: 250px;
+            }
+        }
+
+        /* بەفر بۆ کۆنتێنتی سەرەکی */
+        .snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .snowflake {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            animation: snowfall linear infinite;
+            filter: blur(1px);
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) translateX(var(--drift)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* کڵۆ بەفرە گەورەکان */
+        .snowflake.large {
+            width: 12px;
+            height: 12px;
+            filter: blur(1.5px);
+        }
+
+        /* کڵۆ بەفرە بچووکەکان */
+        .snowflake.small {
+            width: 5px;
+            height: 5px;
+            filter: blur(0.5px);
+        }
+            .splash-logo {
+                width: 80px;
+                height: 80px;
+            }
+
+            .splash-logo img {
+                width: 55px;
+                height: 55px;
+            }
+
+            .splash-title {
+                font-size: 2rem;
+            }
+
+            .splash-subtitle {
+                font-size: 1rem;
+            }
+
+            .splash-loading-bar {
+                width: 200px;
+            }
+
+        /* شاردنەوەی کۆنتێنت تا سپلاش تەواو دەبێت */
+        body.splash-active {
+            overflow: hidden;
+        }
+
+        #mainContent {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #mainContent.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="splash-active">
+    <!-- سپلاش سکرین -->
+    <div id="splashScreen">
+        <div class="splash-gradient"></div>
+        <div class="splash-particles" id="splashParticles"></div>
+        
+        <div class="splash-container">
+            <div class="splash-logo-container">
+                <div class="splash-logo">
+                    <img src="./images/logo.png" alt="لۆگۆ">
                 </div>
-            <button id="hamburger" class="hamburger md:hidden p-2 rounded-lg glass bg-white/10 hover:bg-white/20">
-                <span class="block w-6 h-0.5 bg-white rounded-sm transition-all"></span>
-                <span class="block w-6 h-0.5 bg-white rounded-sm mt-1 transition-all"></span>
-                <span class="block w-6 h-0.5 bg-white rounded-sm mt-1 transition-all"></span>
-            </button>
+            </div>
+            
+            <h1 class="splash-title">پاڕانەوەکانم</h1>
+            <p class="splash-subtitle">فَٱذۡكُرُونِيٓ أَذۡكُرۡكُمۡ</p>
+            
+            <div class="splash-loading">
+                <div class="splash-loading-bar">
+                    <div class="splash-loading-progress"></div>
+                </div>
+                <p class="splash-loading-text">بارکردن...</p>
             </div>
         </div>
-    </nav>
-
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html" onclick="closeMobileMenu()">سەرەکی</a>
-        <a href="poems.html" onclick="closeMobileMenu()">شیعرەکان</a>
-        <a href="favorites.html" onclick="closeMobileMenu()">دڵخوازەکان</a>
-        <a href="about.html" onclick="closeMobileMenu()">دەربارە</a>
     </div>
 
-    <section class="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="hero-title text-4xl sm:text-5xl md:text-7xl font-light text-white mb-4 sm:mb-6">
-              فَٱذۡكُرُونِيٓ أَذۡكُرۡكُمۡ
-            </h2>
-            <p class="text-lg sm:text-xl md:text-2xl text-gray-400 mb-6 sm:mb-8 floating">
-                ئێوه‌ یادی من بكه‌ن به‌وه‌ی تاعه‌ت و گوێڕایه‌ڵیم بكه‌ن منیش یادی ئێوه‌ ئه‌كه‌م به‌وه‌ی كه‌ پاداشتتان ئه‌ده‌مه‌وه‌و لێتان خۆش ده‌بم
-            </p>
-            
-            <div class="grid grid-cols-3 gap-2 sm:gap-4 max-w-2xl mx-auto mb-6 sm:mb-8">
-                <div class="stats-card">
-                    <div class="text-2xl sm:text-3xl font-bold text-white mb-1" id="totalPoems">0</div>
-                    <div class="text-xs sm:text-sm text-gray-400">شیعر</div>
-                </div>
-                <div class="stats-card">
-                    <div class="text-2xl sm:text-3xl font-bold text-white mb-1" id="totalAuthors">0</div>
-                    <div class="text-xs sm:text-sm text-gray-400">شاعیر</div>
-                </div>
-                <div class="stats-card">
-                    <div class="text-2xl sm:text-3xl font-bold text-white mb-1" id="favoriteCount">0</div>
-                    <div class="text-xs sm:text-sm text-gray-400">دڵخواز</div>
-                </div>
-            </div>
-            
-            <a href="poems.html" class="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full font-bold hover:from-indigo-600 hover:to-purple-700 transition transform hover:scale-105 shadow-lg">
-                دەستپێکردن
-            </a>
-        </div>
-    </section>
+    <!-- کۆنتێنتی سەرەکی -->
+    <div id="mainContent">
+        <!-- بەفر بۆ کۆنتێنتی سەرەکی -->
+        <div class="snow-container" id="snowContainer"></div>
+        
+        <div id="readingProgress" class="reading-progress"></div>
 
-    <section class="py-12 sm:py-20 px-4">
-        <div class="max-w-7xl mx-auto">
-            <h3 class="text-3xl sm:text-4xl font-bold text-white text-center mb-8 sm:mb-12">پاڕانەوە دوایینەکان</h3>
-            <div id="recentPoems" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
-                <!-- شیعرە دوایینەکان لێرە دەنوسرێن -->
+        <nav class="glass fixed w-full top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center gap-4 sm:gap-8">
+                        <img src="./images/logo.png" alt="لۆگۆ" class="w-10 h-10 rounded-full logo-img">
+                        <h1 class="text-xl sm:text-2xl font-bold text-white">پاڕانەوەکانم</h1>
+                        <div class="hidden md:flex gap-6">
+                            <a href="index.html" 
+   class="nav-link text-white hover:text-gray-200 transition" 
+   onclick="goToIndexWithoutSplash(); return false;">سەرەکی</a>
+                            <a href="poems.html" class="nav-link text-white hover:text-gray-200 transition">شیعرەکان</a>
+                            <a href="favorites.html" class="nav-link text-white hover:text-gray-200 transition">دڵخوازەکان</a>
+                            <a href="about.html" class="nav-link text-white hover:text-gray-200 transition">دەربارە</a>
+                        </div>
+                    </div>
+                    <button id="hamburger" class="hamburger md:hidden p-2 rounded-lg glass bg-white/10 hover:bg-white/20">
+                        <span class="block w-6 h-0.5 bg-white rounded-sm transition-all"></span>
+                        <span class="block w-6 h-0.5 bg-white rounded-sm mt-1 transition-all"></span>
+                        <span class="block w-6 h-0.5 bg-white rounded-sm mt-1 transition-all"></span>
+                    </button>
+                </div>
             </div>
-            <div class="text-center">
-                <a href="poems.html" class="inline-block glass text-white px-6 py-3 rounded-full hover:bg-white/10 transition">
-                  <i class="fa-solid fa-chevron-right"></i><span class="p-2">بینینی هەموو زیکرەکان</span>
+        </nav>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" onclick="goToIndexWithoutSplash(); closeMobileMenu(); return false;">سەرەکی</a>
+            <a href="poems.html" onclick="closeMobileMenu()">شیعرەکان</a>
+            <a href="favorites.html" onclick="closeMobileMenu()">دڵخوازەکان</a>
+            <a href="about.html" onclick="closeMobileMenu()">دەربارە</a>
+        </div>
+
+        <section class="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="hero-title text-4xl sm:text-5xl md:text-7xl font-light text-white mb-4 sm:mb-6">
+                  فَٱذۡكُرُونِيٓ أَذۡكُرۡكُمۡ
+                </h2>
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-400 mb-6 sm:mb-8 floating">
+                    ئێوه‌ یادی من بكه‌ن به‌وه‌ی تاعه‌ت و گوێڕایه‌ڵیم بكه‌ن منیش یادی ئێوه‌ ئه‌كه‌م به‌وه‌ی كه‌ پاداشتتان ئه‌ده‌مه‌وه‌و لێتان خۆش ده‌بم
+                </p>
+                
+                <div class="grid grid-cols-3 gap-2 sm:gap-4 max-w-2xl mx-auto mb-6 sm:mb-8">
+                    <div class="stats-card">
+                        <div class="text-2xl sm:text-3xl font-bold text-white mb-1" id="totalPoems">0</div>
+                        <div class="text-xs sm:text-sm text-gray-400">شیعر</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="text-2xl sm:text-3xl font-bold text-white mb-1" id="totalAuthors">0</div>
+                        <div class="text-xs sm:text-sm text-gray-400">شاعیر</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="text-2xl sm:text-3xl font-bold text-white mb-1" id="favoriteCount">0</div>
+                        <div class="text-xs sm:text-sm text-gray-400">دڵخواز</div>
+                    </div>
+                </div>
+                
+                <a href="poems.html" class="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full font-bold hover:from-indigo-600 hover:to-purple-700 transition transform hover:scale-105 shadow-lg">
+                    دەستپێکردن
                 </a>
             </div>
+        </section>
+
+        <section class="py-12 sm:py-20 px-4">
+            <div class="max-w-7xl mx-auto">
+                <h3 class="text-3xl sm:text-4xl font-bold text-white text-center mb-8 sm:mb-12">پاڕانەوە دوایینەکان</h3>
+                <div id="recentPoems" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
+                </div>
+                <div class="text-center">
+                    <a href="poems.html" class="inline-block glass text-white px-6 py-3 rounded-full hover:bg-white/10 transition">
+                      <i class="fa-solid fa-chevron-right"></i><span class="p-2">بینینی هەموو زیکرەکان</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-6 sm:py-8 px-4 mt-12 sm:mt-20">
+            <div class="max-w-7xl mx-auto text-center text-gray-500">
+                <p class="text-sm sm:text-base">دروستکراوە لەلایەن:  <a href="https://my-portfolio-py5z.vercel.app/" target="_blank" class="font-bold">دارا عبدالرحمن علی</a></p>
+                <p class="mt-2 text-sm sm:text-base">© 2026 پاڕانەوەکانم - هەموو مافەکان پارێزراون</p>
+            </div>
+        </footer>
+
+        <button id="scrollToTop" class="scroll-to-top" onclick="scrollToTopSmooth()">
+            <svg style="color: #7877c670;" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"></path>
+            </svg>
+        </button>
+
+        <div id="toast" class="toast">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span id="toastMessage"></span>
         </div>
-    </section>
-
-    <footer class="py-6 sm:py-8 px-4 mt-12 sm:mt-20">
-        <div class="max-w-7xl mx-auto text-center text-gray-500">
-            <p class="text-sm sm:text-base">دروستکراوە لەلایەن:  <a href="https://my-portfolio-py5z.vercel.app/" target="_blank" class="font-bold">دارا عبدالرحمن علی</a></p>
-            <p class="mt-2 text-sm sm:text-base">© 2026 پاڕانەوەکانم - هەموو مافەکان پارێزراون</p>
-        </div>
-    </footer>
-
-    <button id="scrollToTop" class="scroll-to-top" onclick="scrollToTopSmooth()">
-        <svg style="color: #7877c670;" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"></path>
-        </svg>
-    </button>
-
-    <div id="toast" class="toast">
-        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-        </svg>
-        <span id="toastMessage"></span>
     </div>
 
     <script src="js/main.js"></script>
     <script src="js/poems-data.js"></script>
     <script>
-        async function init() {
-            await loadPoems();
-            updateStats();
+
+        function goToIndexWithoutSplash() {
+    sessionStorage.setItem('fromPoems', 'true');
+    window.location.href = 'index.html';
+}
+
+        // سپلاش سکرین - کڵۆ بەفر
+        function createSplashParticles() {
+            const particlesContainer = document.getElementById('splashParticles');
+            const particleCount = 50; // زیادتر کرا بۆ بەفری زیاتر
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('splash-particle');
+                
+                // سایزی جیاواز بۆ کڵۆ بەفر
+                const size = Math.random();
+                if (size > 0.7) {
+                    particle.classList.add('large');
+                } else if (size < 0.3) {
+                    particle.classList.add('small');
+                }
+                
+                // پۆزیشنی ڕەندۆم لە سەرەوە
+                particle.style.left = Math.random() * 100 + '%';
+                
+                // خولانی بەفر بۆ لای چەپ و ڕاست
+                const drift = (Math.random() - 0.5) * 100;
+                particle.style.setProperty('--drift', drift + 'px');
+                
+                // کاتی جیاواز بۆ هەر کڵۆیەک
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 5) + 's'; // 5-8 چرکە
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function hideSplashScreen() {
+            const splashScreen = document.getElementById('splashScreen');
+            const mainContent = document.getElementById('mainContent');
             
-            // نیشاندانی 3 شیعری دوایین
-            const recentPoems = poems.slice(-3).reverse();
+            splashScreen.classList.add('hide');
+            document.body.classList.remove('splash-active');
+            
+            setTimeout(() => {
+                mainContent.classList.add('show');
+                // دەستپێکردنی بەفر بۆ کۆنتێنتی سەرەکی
+                createMainSnow();
+            }, 300);
+        }
+
+        // بەفر بۆ کۆنتێنتی سەرەکی
+        function createMainSnow() {
+            const snowContainer = document.getElementById('snowContainer');
+            const snowflakeCount = 50;
+
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                
+                // سایزی جیاواز
+                const size = Math.random();
+                if (size > 0.7) {
+                    snowflake.classList.add('large');
+                } else if (size < 0.3) {
+                    snowflake.classList.add('small');
+                }
+                
+                // پۆزیشنی ڕەندۆم
+                snowflake.style.left = Math.random() * 100 + '%';
+                
+                // خولان
+                const drift = (Math.random() - 0.5) * 100;
+                snowflake.style.setProperty('--drift', drift + 'px');
+                
+                // کاتی جیاواز
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                
+                snowContainer.appendChild(snowflake);
+            }
+        }
+
+        // دەستپێکردن
+        window.addEventListener('DOMContentLoaded', () => {
+            createSplashParticles();
+            
+            // دوای 3 چرکە سپلاش بشارەوە
+            setTimeout(() => {
+                hideSplashScreen();
+            }, 3000);
+            
+            // بارکردنی شیعرەکان
+            setTimeout(async () => {
+                await loadPoems();
+                updateStats();
+                
+                const recentPoems = poems.slice(-3).reverse();
+                const container = document.getElementById('recentPoems');
+                if (container) {
+                    container.innerHTML = recentPoems.map(poem => getPoemCard(poem)).join('');
+                }
+            }, 500);
+        });
+
+        // ئەگەر کلیک کرا لە سپلاش، زووتر بشارەوە
+        document.getElementById('splashScreen').addEventListener('click', () => {
+            hideSplashScreen();
+        });
+// 🆗 سپلاش سکرین - یەک جار تەنها
+function initSplashScreen() {
+    // پشکنین ئەگەر لە poems.html هاتبێتەوە
+    const cameFromPoems = sessionStorage.getItem('fromPoems');
+    
+    if (cameFromPoems === 'true') {
+        // لە poems.html هاتووە → بەبێ سپلاش
+        sessionStorage.removeItem('fromPoems');
+        document.body.classList.remove('splash-active');
+        document.getElementById('mainContent').classList.add('show');
+        document.getElementById('splashScreen').style.display = 'none';
+        createMainSnow();
+        return;
+    }
+    
+    // Refresh یان یەکەم جار → سپلاش
+    createSplashParticles();
+    
+    setTimeout(() => {
+        hideSplashScreen();
+    }, 3000);
+    
+    document.getElementById('splashScreen').addEventListener('click', () => {
+        hideSplashScreen();
+    });
+}
+
+// بەفرەکان
+function createSplashParticles() {
+    const container = document.getElementById('splashParticles');
+    for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('splash-particle');
+        const size = Math.random();
+        if (size > 0.7) particle.classList.add('large');
+        else if (size < 0.3) particle.classList.add('small');
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.setProperty('--drift', (Math.random() - 0.5) * 100 + 'px');
+        particle.style.animationDelay = Math.random() * 5 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        container.appendChild(particle);
+    }
+}
+
+function createMainSnow() {
+    const container = document.getElementById('snowContainer');
+    for (let i = 0; i < 30; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        const size = Math.random();
+        if (size > 0.7) snowflake.classList.add('large');
+        else if (size < 0.3) snowflake.classList.add('small');
+        snowflake.style.left = Math.random() * 100 + '%';
+        snowflake.style.setProperty('--drift', (Math.random() - 0.5) * 100 + 'px');
+        snowflake.style.animationDelay = Math.random() * 5 + 's';
+        snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        container.appendChild(snowflake);
+    }
+}
+
+function hideSplashScreen() {
+    document.getElementById('splashScreen').classList.add('hide');
+    document.body.classList.remove('splash-active');
+    setTimeout(() => {
+        document.getElementById('mainContent').classList.add('show');
+        createMainSnow();
+    }, 300);
+}
+
+// دەستپێکردن
+window.addEventListener('DOMContentLoaded', () => {
+    initSplashScreen();
+    
+    setTimeout(async () => {
+        if (typeof loadPoems === 'function') {
+            await loadPoems();
+            if (typeof updateStats === 'function') updateStats();
+            const recentPoems = poems?.slice(-3).reverse() || [];
             const container = document.getElementById('recentPoems');
-            if (container) {
+            if (container && typeof getPoemCard === 'function') {
                 container.innerHTML = recentPoems.map(poem => getPoemCard(poem)).join('');
             }
         }
-        
-        init();
+    }, 500);
+});
+
     </script>
 </body>
 </html>
