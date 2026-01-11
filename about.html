@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پاڕانەوەکانم - دەربارە</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="readingProgress" class="reading-progress"></div>
+
+    <nav class="glass fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-4 sm:gap-8">
+                    <h1 class="text-xl sm:text-2xl font-bold text-white">پاڕانەوەکانم</h1>
+                    <div class="hidden md:flex gap-6">
+                        <a href="index.html" class="nav-link text-white hover:text-gray-200 transition">سەرەکی</a>
+                        <a href="poems.html" class="nav-link text-white hover:text-gray-200 transition">شیعرەکان</a>
+                        <a href="favorites.html" class="nav-link text-white hover:text-gray-200 transition">دڵخوازەکان</a>
+                        <a href="about.html" class="nav-link text-white hover:text-gray-200 transition active">دەربارە</a>
+                    </div>
+                </div>
+                <button id="hamburger" class="hamburger md:hidden p-2 rounded-lg glass bg-white/10 hover:bg-white/20">
+                <span class="block w-6 h-0.5 bg-white rounded-sm transition-all"></span>
+                <span class="block w-6 h-0.5 bg-white rounded-sm mt-1 transition-all"></span>
+                <span class="block w-6 h-0.5 bg-white rounded-sm mt-1 transition-all"></span>
+            </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" onclick="closeMobileMenu()">سەرەکی</a>
+        <a href="poems.html" onclick="closeMobileMenu()">شیعرەکان</a>
+        <a href="favorites.html" onclick="closeMobileMenu()">دڵخوازەکان</a>
+        <a href="about.html" onclick="closeMobileMenu()">دەربارە</a>
+    </div>
+
+    <section class="pt-24 sm:pt-32 pb-8 sm:pb-12 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="hero-title text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+                دەربارە
+            </h2>
+            <p class="text-lg sm:text-xl text-gray-400">
+                زانیاری دەربارەی ئەم پرۆژەیە
+            </p>
+        </div>
+    </section>
+
+    <section class="py-8 sm:py-20 px-4">
+        <div class="max-w-4xl mx-auto space-y-8">
+            <!-- کارتی دەربارە -->
+            <div class="glass rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12">
+                <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">دەربارەی پرۆژە</h3>
+                <p class="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-4">
+                    ئەم وێبسایتە بۆ خۆشەویستانی شیعر دروستکراوە. لێرە دەتوانیت کۆمەڵێک شیعری جوان بخوێنیتەوە و 
+                    لە جیهانی وشەکان غەرق بیت. هەر شیعرێک چیرۆکێکی تایبەتی خۆی هەیە.
+                </p>
+                <p class="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
+                    ئامانجی ئێمە پارێزگاری لە میراتی شیعری کوردی و هاندانی نەوەی نوێیە بۆ خوێندنەوە و خۆشەویستی شیعر.
+                </p>
+            </div>
+
+            <!-- تایبەتمەندییەکان -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass rounded-xl p-6 hover:scale-105 transition-transform">
+                    <div class="text-indigo-400 mb-4">
+                        <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">کتێبخانەی فراوان</h4>
+                    <p class="text-gray-400">کۆمەڵێکی گەورە لە شیعرە جوانەکان لە جۆرە جیاوازەکاندا</p>
+                </div>
+
+                <div class="glass rounded-xl p-6 hover:scale-105 transition-transform">
+                    <div class="text-indigo-400 mb-4">
+                        <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">دڵخوازەکان</h4>
+                    <p class="text-gray-400">شیعرە دڵخوازەکانت هەڵبژێرە و هەڵیانبگرە</p>
+                </div>
+
+                <div class="glass rounded-xl p-6 hover:scale-105 transition-transform">
+                    <div class="text-indigo-400 mb-4">
+                        <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">گەڕان</h4>
+                    <p class="text-gray-400">بە خێرایی شیعری دڵخوازت بدۆزەرەوە</p>
+                </div>
+
+                <div class="glass rounded-xl p-6 hover:scale-105 transition-transform">
+                    <div class="text-indigo-400 mb-4">
+                        <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">ڕیسپۆنسیڤ</h4>
+                    <p class="text-gray-400">لە هەموو ئامێرەکاندا بە باشی کاردەکات</p>
+                </div>
+            </div>
+
+            <!-- پەیوەندی -->
+            <div class="glass rounded-2xl p-6 sm:p-8 text-center">
+                <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">پەیوەندیمان پێوە بکە</h3>
+                <p class="text-gray-300 mb-6">
+                    ئەگەر پێشنیارێکت هەیە یان دەتەوێت شیعرێک زیاد بکەیت، پەیوەندیمان پێوە بکە
+                </p>
+                <div class="flex justify-center gap-4">
+                    <a href="mailto:info@example.com" class="glass px-6 py-3 rounded-full text-white hover:bg-white/10 transition flex items-center gap-2">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>ئیمەیڵ</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ستاتس -->
+            <div class="grid grid-cols-3 gap-4">
+                <div class="glass rounded-xl p-6 text-center">
+                    <div class="text-3xl font-bold text-white mb-2" id="totalPoems">0</div>
+                    <div class="text-sm text-gray-400">شیعر</div>
+                </div>
+                <div class="glass rounded-xl p-6 text-center">
+                    <div class="text-3xl font-bold text-white mb-2" id="totalAuthors">0</div>
+                    <div class="text-sm text-gray-400">شاعیر</div>
+                </div>
+                <div class="glass rounded-xl p-6 text-center">
+                    <div class="text-3xl font-bold text-white mb-2" id="totalCategories">4</div>
+                    <div class="text-sm text-gray-400">جۆر</div>
+                </div>
+            </div>
+
+            <!-- دوگمەی بڕۆ بۆ شیعرەکان -->
+            <div class="text-center">
+                <a href="poems.html" class="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-3 rounded-full font-bold hover:from-indigo-600 hover:to-purple-700 transition transform hover:scale-105 shadow-lg">
+                    بڕۆ بۆ شیعرەکان →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-6 sm:py-8 px-4 mt-12 sm:mt-20">
+        <div class="max-w-7xl mx-auto text-center text-gray-500">
+            <p class="text-sm sm:text-base">دروستکراوە بە ❤️ بۆ خۆشەویستانی شیعر</p>
+            <p class="mt-2 text-sm sm:text-base">© 2026 شعر - هەموو مافەکان پارێزراون</p>
+        </div>
+    </footer>
+
+    <button id="scrollToTop" class="scroll-to-top" onclick="scrollToTopSmooth()">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <div id="toast" class="toast">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/poems-data.js"></script>
+    <script>
+        async function init() {
+            await loadPoems();
+            updateStats();
+        }
+        
+        init();
+    </script>
+</body>
+</html>
