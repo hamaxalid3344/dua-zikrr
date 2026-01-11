@@ -3,6 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi2YHYs9iqINin2YUg2KfbjCDYp9ix2KfZhSIsInNob3J0X25hbWUiOiLZgtiuINin2LPYp9mFINin2YYiLCJpY29ucyI6W3sic3JjIjoibG9nby5wbmciLCJzaXplcyI6IjUxMngxMjgiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dfQ==">
+    
+    <!-- 🆕 لۆگۆکان -->
+    <link rel="icon" type="image/png" href="./images/logo.png">
+    <link rel="apple-touch-icon" href="./images/logo.png">
+    
+    <!-- 🆕 PWA بۆ مۆبایل home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+
     <title>پاڕانەوەکانم - شیعرەکان</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,6 +27,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center gap-4 sm:gap-8">
+                    <img src="./images/logo.png" alt="لۆگۆ" class="w-10 h-10 rounded-full logo-img">
                     <h1 class="text-xl sm:text-2xl font-bold text-white">پاڕانەوەکانم</h1>
                     <div class="hidden md:flex gap-6">
                         <a href="index.html" class="nav-link text-white hover:text-gray-200 transition">سەرەکی</a>
@@ -24,15 +37,6 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <div class="search-container w-48 sm:w-64">
-                        <input 
-                            type="text" 
-                            id="searchInput"
-                            placeholder="گەڕان..."
-                            class="w-full px-3 sm:px-4 py-2 text-sm sm:text-base rounded-full bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-                        >
-                        <div id="searchResults" class="search-results glass rounded-lg p-2"></div>
-                    </div>
                     <button id="hamburger" class="hamburger md:hidden p-2 rounded-lg glass bg-white/10 hover:bg-white/20">
                 <span class="block w-6 h-0.5 bg-white rounded-sm transition-all"></span>
                 <span class="block w-6 h-0.5 bg-white rounded-sm mt-1 transition-all"></span>
@@ -71,7 +75,20 @@
                 <button class="filter-btn" data-category="فەلسەفی">فەلسەفی</button>
                 <button class="filter-btn" data-category="نیشتمان">نیشتمان</button>
             </div>
-        </div>
+        </div><br>
+        <div class="search-container w-48 sm:w-64 flex items-center gap-3 z-50 mx-auto max-w-7xl">
+              <svg class="search-icon absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" 
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+    </svg>
+                        <input 
+                            type="text" 
+                            id="searchInput"
+                            placeholder= "گەڕان..."
+                            class="w-full px-8 sm:px-8 py-2 text-sm sm:text-base rounded-full bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+                        >
+                        <div id="searchResults" class="search-results glass rounded-lg p-2"></div>
+                    </div>
     </section>
 
     <section class="py-8 sm:py-12 px-4">
