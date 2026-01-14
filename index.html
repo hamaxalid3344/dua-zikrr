@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="css/style.css">
     
     <style>
+        /* هەموو ستایلە پێشووەکان هەر وەک خۆیان دەمێننەوە */
         /* سپلاش سکرین */
         #splashScreen {
             position: fixed;
@@ -231,45 +232,18 @@
             }
         }
 
-        /* کڵۆ بەفرە گەورەکان */
         .splash-particle.large {
             width: 12px;
             height: 12px;
             filter: blur(1.5px);
         }
 
-        /* کڵۆ بەفرە بچووکەکان */
         .splash-particle.small {
             width: 5px;
             height: 5px;
             filter: blur(0.5px);
         }
 
-        @media (max-width: 768px) {
-            .splash-logo {
-                width: 100px;
-                height: 100px;
-            }
-
-            .splash-logo img {
-                width: 65px;
-                height: 65px;
-            }
-
-            .splash-title {
-                font-size: 2.5rem;
-            }
-
-            .splash-subtitle {
-                font-size: 1.2rem;
-            }
-
-            .splash-loading-bar {
-                width: 250px;
-            }
-        }
-
-        /* بەفر بۆ کۆنتێنتی سەرەکی */
         .snow-container {
             position: fixed;
             top: 0;
@@ -291,59 +265,38 @@
             filter: blur(1px);
         }
 
-        @keyframes snowfall {
-            0% {
-                transform: translateY(-10vh) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(110vh) translateX(var(--drift)) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* کڵۆ بەفرە گەورەکان */
         .snowflake.large {
             width: 12px;
             height: 12px;
             filter: blur(1.5px);
         }
 
-        /* کڵۆ بەفرە بچووکەکان */
         .snowflake.small {
             width: 5px;
             height: 5px;
             filter: blur(0.5px);
         }
+
+        @media (max-width: 768px) {
             .splash-logo {
                 width: 80px;
                 height: 80px;
             }
-
             .splash-logo img {
                 width: 55px;
                 height: 55px;
             }
-
             .splash-title {
                 font-size: 2rem;
             }
-
             .splash-subtitle {
                 font-size: 1rem;
             }
-
             .splash-loading-bar {
                 width: 200px;
             }
+        }
 
-        /* شاردنەوەی کۆنتێنت تا سپلاش تەواو دەبێت */
         body.splash-active {
             overflow: hidden;
         }
@@ -385,7 +338,6 @@
 
     <!-- کۆنتێنتی سەرەکی -->
     <div id="mainContent">
-        <!-- بەفر بۆ کۆنتێنتی سەرەکی -->
         <div class="snow-container" id="snowContainer"></div>
         
         <div id="readingProgress" class="reading-progress"></div>
@@ -397,9 +349,7 @@
                         <img src="./images/logo.png" alt="لۆگۆ" class="w-10 h-10 rounded-full logo-img">
                         <h1 class="text-xl sm:text-2xl font-bold text-white">پاڕانەوەکانم</h1>
                         <div class="hidden md:flex gap-6">
-                            <a href="index.html" 
-   class="nav-link text-white hover:text-gray-200 transition" 
-   onclick="goToIndexWithoutSplash(); return false;">سەرەکی</a>
+                            <a href="index.html" class="nav-link text-white hover:text-gray-200 transition" onclick="goToIndexWithoutSplash(); return false;">سەرەکی</a>
                             <a href="poems.html" class="nav-link text-white hover:text-gray-200 transition">شیعرەکان</a>
                             <a href="favorites.html" class="nav-link text-white hover:text-gray-200 transition">دڵخوازەکان</a>
                             <a href="about.html" class="nav-link text-white hover:text-gray-200 transition">دەربارە</a>
@@ -445,9 +395,17 @@
                     </div>
                 </div>
                 
-                <a href="poems.html" class="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full font-bold hover:from-indigo-600 hover:to-purple-700 transition transform hover:scale-105 shadow-lg">
-                    دەستپێکردن
-                </a>
+                <!-- دوگمەی نوێ بۆ نۆتیفیکەیشن -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="poems.html" class="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full font-bold hover:from-indigo-600 hover:to-purple-700 transition transform hover:scale-105 shadow-lg">
+                        دەستپێکردن
+                    </a>
+                    
+                    <button id="notificationBtn" class="inline-flex items-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full font-bold hover:from-indigo-600 hover:to-purple-700 transition transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-bell ml-2"></i>
+                        یادەوەری ڕۆژانە
+                    </button>
+                </div>
             </div>
         </section>
 
@@ -466,7 +424,7 @@
 
         <footer class="py-6 sm:py-8 px-4 mt-12 sm:mt-20">
             <div class="max-w-7xl mx-auto text-center text-gray-500">
-                <p class="text-sm sm:text-base">دروستکراوە لەلایەن:  <a href="https://my-portfolio-py5z.vercel.app/" target="_blank" class="font-bold">دارا عبدالرحمن علی</a></p>
+                <p class="text-sm sm:text-base">دروستکراوە لەلایەن: <a href="https://my-portfolio-py5z.vercel.app/" target="_blank" class="font-bold">دارا عبدالرحمن علی</a></p>
                 <p class="mt-2 text-sm sm:text-base">© 2026 پاڕانەوەکانم - هەموو مافەکان پارێزراون</p>
             </div>
         </footer>
@@ -487,203 +445,93 @@
 
     <script src="js/main.js"></script>
     <script src="js/poems-data.js"></script>
+    <script src="js/notifications.js"></script>
+    
     <script>
-
         function goToIndexWithoutSplash() {
-    sessionStorage.setItem('fromPoems', 'true');
-    window.location.href = 'index.html';
-}
-
-        // سپلاش سکرین - کڵۆ بەفر
-        function createSplashParticles() {
-            const particlesContainer = document.getElementById('splashParticles');
-            const particleCount = 50; // زیادتر کرا بۆ بەفری زیاتر
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('splash-particle');
-                
-                // سایزی جیاواز بۆ کڵۆ بەفر
-                const size = Math.random();
-                if (size > 0.7) {
-                    particle.classList.add('large');
-                } else if (size < 0.3) {
-                    particle.classList.add('small');
-                }
-                
-                // پۆزیشنی ڕەندۆم لە سەرەوە
-                particle.style.left = Math.random() * 100 + '%';
-                
-                // خولانی بەفر بۆ لای چەپ و ڕاست
-                const drift = (Math.random() - 0.5) * 100;
-                particle.style.setProperty('--drift', drift + 'px');
-                
-                // کاتی جیاواز بۆ هەر کڵۆیەک
-                particle.style.animationDelay = Math.random() * 5 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 5) + 's'; // 5-8 چرکە
-                
-                particlesContainer.appendChild(particle);
-            }
+            sessionStorage.setItem('fromPoems', 'true');
+            window.location.href = 'index.html';
         }
 
-        function hideSplashScreen() {
-            const splashScreen = document.getElementById('splashScreen');
-            const mainContent = document.getElementById('mainContent');
+        function initSplashScreen() {
+            const cameFromPoems = sessionStorage.getItem('fromPoems');
             
-            splashScreen.classList.add('hide');
-            document.body.classList.remove('splash-active');
-            
-            setTimeout(() => {
-                mainContent.classList.add('show');
-                // دەستپێکردنی بەفر بۆ کۆنتێنتی سەرەکی
+            if (cameFromPoems === 'true') {
+                sessionStorage.removeItem('fromPoems');
+                document.body.classList.remove('splash-active');
+                document.getElementById('mainContent').classList.add('show');
+                document.getElementById('splashScreen').style.display = 'none';
                 createMainSnow();
-            }, 300);
-        }
-
-        // بەفر بۆ کۆنتێنتی سەرەکی
-        function createMainSnow() {
-            const snowContainer = document.getElementById('snowContainer');
-            const snowflakeCount = 50;
-
-            for (let i = 0; i < snowflakeCount; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                
-                // سایزی جیاواز
-                const size = Math.random();
-                if (size > 0.7) {
-                    snowflake.classList.add('large');
-                } else if (size < 0.3) {
-                    snowflake.classList.add('small');
-                }
-                
-                // پۆزیشنی ڕەندۆم
-                snowflake.style.left = Math.random() * 100 + '%';
-                
-                // خولان
-                const drift = (Math.random() - 0.5) * 100;
-                snowflake.style.setProperty('--drift', drift + 'px');
-                
-                // کاتی جیاواز
-                snowflake.style.animationDelay = Math.random() * 5 + 's';
-                snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                
-                snowContainer.appendChild(snowflake);
+                return;
             }
-        }
-
-        // دەستپێکردن
-        window.addEventListener('DOMContentLoaded', () => {
+            
             createSplashParticles();
             
-            // دوای 3 چرکە سپلاش بشارەوە
             setTimeout(() => {
                 hideSplashScreen();
             }, 3000);
             
-            // بارکردنی شیعرەکان
+            document.getElementById('splashScreen').addEventListener('click', () => {
+                hideSplashScreen();
+            });
+        }
+
+        function createSplashParticles() {
+            const container = document.getElementById('splashParticles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('splash-particle');
+                const size = Math.random();
+                if (size > 0.7) particle.classList.add('large');
+                else if (size < 0.3) particle.classList.add('small');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.setProperty('--drift', (Math.random() - 0.5) * 100 + 'px');
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        function createMainSnow() {
+            const container = document.getElementById('snowContainer');
+            for (let i = 0; i < 30; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                const size = Math.random();
+                if (size > 0.7) snowflake.classList.add('large');
+                else if (size < 0.3) snowflake.classList.add('small');
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.setProperty('--drift', (Math.random() - 0.5) * 100 + 'px');
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                container.appendChild(snowflake);
+            }
+        }
+
+        function hideSplashScreen() {
+            document.getElementById('splashScreen').classList.add('hide');
+            document.body.classList.remove('splash-active');
+            setTimeout(() => {
+                document.getElementById('mainContent').classList.add('show');
+                createMainSnow();
+            }, 300);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initSplashScreen();
+            
             setTimeout(async () => {
-                await loadPoems();
-                updateStats();
-                
-                const recentPoems = poems.slice(-3).reverse();
-                const container = document.getElementById('recentPoems');
-                if (container) {
-                    container.innerHTML = recentPoems.map(poem => getPoemCard(poem)).join('');
+                if (typeof loadPoems === 'function') {
+                    await loadPoems();
+                    if (typeof updateStats === 'function') updateStats();
+                    const recentPoems = poems?.slice(-3).reverse() || [];
+                    const container = document.getElementById('recentPoems');
+                    if (container && typeof getPoemCard === 'function') {
+                        container.innerHTML = recentPoems.map(poem => getPoemCard(poem)).join('');
+                    }
                 }
             }, 500);
         });
-
-        // ئەگەر کلیک کرا لە سپلاش، زووتر بشارەوە
-        document.getElementById('splashScreen').addEventListener('click', () => {
-            hideSplashScreen();
-        });
-// 🆗 سپلاش سکرین - یەک جار تەنها
-function initSplashScreen() {
-    // پشکنین ئەگەر لە poems.html هاتبێتەوە
-    const cameFromPoems = sessionStorage.getItem('fromPoems');
-    
-    if (cameFromPoems === 'true') {
-        // لە poems.html هاتووە → بەبێ سپلاش
-        sessionStorage.removeItem('fromPoems');
-        document.body.classList.remove('splash-active');
-        document.getElementById('mainContent').classList.add('show');
-        document.getElementById('splashScreen').style.display = 'none';
-        createMainSnow();
-        return;
-    }
-    
-    // Refresh یان یەکەم جار → سپلاش
-    createSplashParticles();
-    
-    setTimeout(() => {
-        hideSplashScreen();
-    }, 3000);
-    
-    document.getElementById('splashScreen').addEventListener('click', () => {
-        hideSplashScreen();
-    });
-}
-
-// بەفرەکان
-function createSplashParticles() {
-    const container = document.getElementById('splashParticles');
-    for (let i = 0; i < 50; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('splash-particle');
-        const size = Math.random();
-        if (size > 0.7) particle.classList.add('large');
-        else if (size < 0.3) particle.classList.add('small');
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.setProperty('--drift', (Math.random() - 0.5) * 100 + 'px');
-        particle.style.animationDelay = Math.random() * 5 + 's';
-        particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
-        container.appendChild(particle);
-    }
-}
-
-function createMainSnow() {
-    const container = document.getElementById('snowContainer');
-    for (let i = 0; i < 30; i++) {
-        const snowflake = document.createElement('div');
-        snowflake.classList.add('snowflake');
-        const size = Math.random();
-        if (size > 0.7) snowflake.classList.add('large');
-        else if (size < 0.3) snowflake.classList.add('small');
-        snowflake.style.left = Math.random() * 100 + '%';
-        snowflake.style.setProperty('--drift', (Math.random() - 0.5) * 100 + 'px');
-        snowflake.style.animationDelay = Math.random() * 5 + 's';
-        snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
-        container.appendChild(snowflake);
-    }
-}
-
-function hideSplashScreen() {
-    document.getElementById('splashScreen').classList.add('hide');
-    document.body.classList.remove('splash-active');
-    setTimeout(() => {
-        document.getElementById('mainContent').classList.add('show');
-        createMainSnow();
-    }, 300);
-}
-
-// دەستپێکردن
-window.addEventListener('DOMContentLoaded', () => {
-    initSplashScreen();
-    
-    setTimeout(async () => {
-        if (typeof loadPoems === 'function') {
-            await loadPoems();
-            if (typeof updateStats === 'function') updateStats();
-            const recentPoems = poems?.slice(-3).reverse() || [];
-            const container = document.getElementById('recentPoems');
-            if (container && typeof getPoemCard === 'function') {
-                container.innerHTML = recentPoems.map(poem => getPoemCard(poem)).join('');
-            }
-        }
-    }, 500);
-});
-
     </script>
 </body>
 </html>
